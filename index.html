@@ -14,7 +14,7 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Helvetica,Arial,sans
 <div>
 	<h1 id="timer_default"></h1>
 </div>
-<div class="focus">
+<div class="focus" id="focusContainer">
     <div>What is your focus for this pomodoro?</div>
     <input type="text" autocomplete="off" id="focus" />
 </div>
@@ -23,10 +23,11 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Helvetica,Arial,sans
     <a href="#" class="button" id="break" type="submit" value="Short Break">Break</a>
 </div>
 <footer>
+    Finished pomodoros: <span id="pomodorosCounter">0</span><br/><br/>
     <a href="#" title="Enable desktop notification" id="enableDekstopAlert">Desktop notification</a>
+    <a href="#" title="Toggle Focus" id="toggleFocus">Toggle Focus</a>
     <a href="#" title="Set Classic Alarm" class="js-setAlarm" data-alarm="alarm-watch.mp3">Classic Alarm</a>
     <a href="#" title="Set Soft Alarm" class="js-setAlarm" data-alarm="alarm-soft.mp3">Soft Alarm</a>
-    Finished pomodoros: <span id="pomodorosCounter">0</span>
 </footer>
 <script type="text/javascript" src="howler.js"></script>
 <script type="text/javascript" src="pomodoro.js"></script>

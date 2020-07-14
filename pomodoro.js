@@ -37,11 +37,16 @@ b=yy        : sets the break timer to yy minutes (default: 5)
 
     class CurrentFocus {
         constructor() {
-            this.reset();
+            if (this.isEnabled()) {
+                this.reset();
+            } else {
+                this.hide();
+            }
         }
 
         reset() {
             this.set("");
+            document.getElementById("focus").value = "";
         }
 
         get() {
@@ -61,6 +66,30 @@ b=yy        : sets the break timer to yy minutes (default: 5)
                 } else {
                     document.body.style.backgroundColor = "#fff";
                 }
+            }
+        }
+
+        isEnabled() {
+            return localStorage.getItem("focusEnabled") !== "false";
+        }
+
+        hide() {
+            document.getElementById("focusContainer").style.visibility = "hidden";
+        }
+
+        show() {
+            document.getElementById("focusContainer").style.visibility = "visible";
+        }
+
+        toggleOnOff() {
+            const currentValue = this.isEnabled();
+            localStorage.setItem("focusEnabled", !currentValue);
+
+            if (currentValue) {
+                this.reset();
+                this.hide();
+            } else {
+                this.show();
             }
         }
     }
@@ -153,7 +182,6 @@ b=yy        : sets the break timer to yy minutes (default: 5)
                 this.$pomodorosCounter.innerHTML = parseInt(this.$pomodorosCounter.innerHTML, 10) + 1;
             }
             currentFocus.reset();
-            document.getElementById("focus").value = "";
         }
     }
 
@@ -250,7 +278,10 @@ b=yy        : sets the break timer to yy minutes (default: 5)
             Notification.requestPermission();
         }
     };
-    document.getElementById("focus").onkeyup = function () {
+    document.getElementById("toggleFocus").onclick = function() {
+        window.currentFocus.toggleOnOff();
+    }
+    document.getElementById("focus").onkeyup = function() {
         window.currentFocus.set(this.value);
     }
 
