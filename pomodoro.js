@@ -74,11 +74,11 @@ b=yy        : sets the break timer to yy minutes (default: 5)
         }
 
         hide() {
-            document.getElementById("focusContainer").style.visibility = "hidden";
+            document.getElementById("focusContainer").className = "hidden"
         }
 
         show() {
-            document.getElementById("focusContainer").style.visibility = "visible";
+            document.getElementById("focusContainer").className = "focus";
         }
 
         toggleOnOff() {
