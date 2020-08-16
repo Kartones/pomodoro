@@ -1,13 +1,3 @@
-
-/*
----------------
-Querystring options supported:
-theme=dark  : forces dark theme (automatically set if detected at OS/webbrowser level)
-t=xx        : sets the pomodoro timer to xx minutes (default 25)
-b=yy        : sets the break timer to yy minutes (default: 5)
----------------
- */
-
 (function(window){
 
     function buzzer() {
@@ -57,14 +47,28 @@ b=yy        : sets the break timer to yy minutes (default: 5)
             localStorage.setItem("currentFocus", focus);
 
             if (!isDarkModeEnabled()) {
+                let $focusNode = document.getElementById("focus");
                 if (focus) {
+                    if (focus.length < 23) {
+                        $focusNode.style.fontSize = "22px";
+                    } else if (focus.length < 24) {
+                        $focusNode.style.fontSize = "21px";
+                    } else if (focus.length < 26) {
+                        $focusNode.style.fontSize = "19px";
+                    } else {
+                        $focusNode.style.fontSize = "17px";
+                    }
+
                     let chosenColor = 0;
                     for (let index = 0, size = focus.length - 1; index < size; index++) {
                         chosenColor += focus.charCodeAt(index) * 10^index;
                     }
-                    document.body.style.backgroundColor = colors[chosenColor % colors.length];
+                    $focusNode.style.color = colors[chosenColor % colors.length];
+                    $focusNode.style.borderBottomColor = colors[chosenColor % colors.length];
                 } else {
-                    document.body.style.backgroundColor = "#fff";
+                    $focusNode.style.fontSize = "22px";
+                    $focusNode.style.color = "#fff";
+                    $focusNode.style.borderBottomColor = "#222";
                 }
             }
         }
@@ -229,26 +233,7 @@ b=yy        : sets the break timer to yy minutes (default: 5)
     }
 
     window.colors = [
-        "#FFC8C8", "#F4CAD6", "#FFA8FF", "#EFCDF8", "#C6C6FF", "#C0E7F3", "#DCEDEA", "#FFEAEA", "#F8DAE2", "#FFC4FF",
-        "#EFCDF8", "#DBDBFF", "#D8F0F8", "#E7F3F1", "#FFEAEA", "#FAE7EC", "#FFE3FF", "#F8E9FC", "#EEEEFF", "#EFF9FC",
-        "#F2F9F8", "#FFFDFD", "#FEFAFB", "#FFFDFF", "#FFFFFF", "#FDFDFF", "#FAFDFE", "#F7FBFA", "#EEEECE", "#EFE7CF",
-        "#EEDCC8", "#F0DCD5", "#EACDC1", "#F0DDD5", "#ECD9D9", "#F1F1D6", "#F5EFE0", "#F2E4D5", "#F5E7E2", "#F0DDD5",
-        "#F5E8E2", "#F3E7E7", "#F5F5E2", "#F9F5EC", "#F9F3EC", "#F9EFEC", "#F5E8E2", "#FAF2EF", "#F8F1F1", "#FDFDF9",
-        "#FDFCF9", "#FCF9F5", "#FDFAF9", "#FDFAF9", "#FCF7F5", "#FDFBFB", "#F7F7CE", "#FFF7B7", "#FFF1C6", "#FFEAB7",
-        "#FFEAC4", "#FFE1C6", "#FFE2C8", "#F9F9DD", "#FFF9CE", "#FFF5D7", "#FFF2D2", "#FFF2D9", "#FFEBD9", "#FFE6D0",
-        "#FBFBE8", "#FFFBDF", "#FFFAEA", "#FFF9EA", "#FFF7E6", "#FFF4EA", "#FFF1E6", "#FEFEFA", "#FFFEF7", "#FFFDF7",
-        "#FFFDF9", "#FFFDF9", "#FFFEFD", "#FFF9F4", "#D6F8DE", "#DBEADC", "#DDFED1", "#B3FF99", "#DFFFCA", "#FFFFC8",
-        "#F7F9D0", "#E3FBE9", "#E9F1EA", "#EAFEE2", "#D2FFC4", "#E8FFD9", "#FFFFD7", "#FAFBDF", "#E3FBE9", "#F3F8F4",
-        "#F1FEED", "#E7FFDF", "#F2FFEA", "#FFFFE3", "#FCFCE9", "#FAFEFB", "#FBFDFB", "#FDFFFD", "#F5FFF2", "#FAFFF7",
-        "#FFFFFD", "#FDFDF0", "#CACAFF", "#D0E6FF", "#D9F3FF", "#C0F7FE", "#CEFFFD", "#BEFEEB", "#CAFFD8", "#E1E1FF",
-        "#DBEBFF", "#ECFAFF", "#C0F7FE", "#E1FFFE", "#BDFFEA", "#EAFFEF", "#EEEEFF", "#ECF4FF", "#F9FDFF", "#E6FCFF",
-        "#F2FFFE", "#CFFEF0", "#EAFFEF", "#F9F9FF", "#F9FCFF", "#FDFEFF", "#F9FEFF", "#FDFFFF", "#F7FFFD", "#F9FFFB",
-        "#FFCEFF", "#F0C4F0", "#E8C6FF", "#E1CAF9", "#D7D1F8", "#CEDEF4", "#B8E2EF", "#FFDFFF", "#F4D2F4", "#EFD7FF",
-        "#EDDFFB", "#E3E0FA", "#E0EAF8", "#C9EAF3", "#FFECFF", "#F4D2F4", "#F9EEFF", "#F5EEFD", "#EFEDFC", "#EAF1FB",
-        "#DBF0F7", "#FFF9FF", "#FDF9FD", "#FEFDFF", "#FEFDFF", "#F7F5FE", "#F8FBFE", "#EAF7FB", "#FFCECE", "#FFC8F2",
-        "#FFC8E3", "#FFCAF9", "#F5CAFF", "#F0CBFE", "#DDCEFF", "#FFDFDF", "#FFDFF8", "#FFDFEF", "#FFDBFB", "#F9D9FF",
-        "#F4DCFE", "#E6DBFF", "#FFECEC", "#FFEEFB", "#FFECF5", "#FFEEFD", "#FDF2FF", "#FAECFF", "#F1ECFF", "#FFF2F2",
-        "#FFFEFB", "#FFF9FC", "#FFF9FE", "#FFFDFF", "#FDF9FF", "#FBF9FF"
+        "#3E2A8F", "#8D2965", "#B14623", "#D10000", "#1B844E", "#1D54AC", "#528227"
     ];
 
     window.breakTime = 5 * 60;
